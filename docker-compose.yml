@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./tinyurl-backend
+    image: vnkt/tinyurl_backend:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/usr/src/backend
+    environment:
+      - NODE_ENV=development
+
+  frontend:
+    build:
+      context: ./tinyurl-frontend
+    image: vnkt/tinyurl_frontend:latest
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/src/frontend
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
